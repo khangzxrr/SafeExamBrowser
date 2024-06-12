@@ -54,6 +54,8 @@ namespace SafeExamBrowser.Runtime.Operations
 			StatusChanged?.Invoke(TextKey.OperationStatus_ValidateDisplayConfiguration);
 
 			var result = OperationResult.Failed;
+
+			//hard coded default always 1 internal display
 			var validation = new ValidationResult();
 			validation.InternalDisplays = 1;
 			validation.ExternalDisplays = 0;
