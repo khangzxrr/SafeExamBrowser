@@ -10,6 +10,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Reflection;
 using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography.X509Certificates;
@@ -40,8 +41,8 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 		internal AppConfig InitializeAppConfig()
 		{
 			var executable = Assembly.GetEntryAssembly();
-			var certificate = executable.Modules.First().GetSignerCertificate();
-			//var certificate = X509Certificate.CreateFromCertFile("SafeExamBrowser.exe.cer");
+			//var certificate = executable.Modules.First().GetSignerCertificate();
+			var certificate = X509Certificate.CreateFromCertFile("SafeExamBrowser.exe.cer");
 			var programBuild = FileVersionInfo.GetVersionInfo(executable.Location).FileVersion;
 			var programCopyright = executable.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright;
 			var programTitle = executable.GetCustomAttribute<AssemblyTitleAttribute>().Title;
@@ -61,7 +62,11 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			appConfig.BrowserLogFilePath = Path.Combine(logFolder, $"{logFilePrefix}_Browser.log");
 			appConfig.ClientId = Guid.NewGuid();
 			appConfig.ClientAddress = $"{AppConfig.BASE_ADDRESS}/client/{Guid.NewGuid()}";
+			
+			//IMPORTANT
+			//make sure to launch client.exe from original SEB to bypass hash check
 			appConfig.ClientExecutablePath = "C:\\Program Files\\SafeExamBrowser\\Application\\SafeExamBrowser.Client.exe";
+
 			appConfig.ClientLogFilePath = Path.Combine(logFolder, $"{logFilePrefix}_Client.log");
 			appConfig.CodeSignatureHash = certificate?.GetCertHashString();
 			appConfig.ConfigurationFileExtension = ".seb";
