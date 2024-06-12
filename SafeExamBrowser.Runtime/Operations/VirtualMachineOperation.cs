@@ -50,6 +50,8 @@ namespace SafeExamBrowser.Runtime.Operations
 		{
 			logger.Info($"Validating virtual machine policy...");
 			StatusChanged?.Invoke(TextKey.OperationStatus_ValidateVirtualMachinePolicy);
+			
+			//removed vitural machine check
 
 			return OperationResult.Success;
 		}
