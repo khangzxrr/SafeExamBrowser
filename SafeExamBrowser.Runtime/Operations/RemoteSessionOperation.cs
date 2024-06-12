@@ -48,23 +48,7 @@ namespace SafeExamBrowser.Runtime.Operations
 		private OperationResult ValidatePolicy()
 		{
 			logger.Info($"Validating remote session policy...");
-			StatusChanged?.Invoke(TextKey.OperationStatus_ValidateRemoteSessionPolicy);
-
-			if (Context.Next.Settings.Service.DisableRemoteConnections && detector.IsRemoteSession())
-			{
-				var args = new MessageEventArgs
-				{
-					Icon = MessageBoxIcon.Error,
-					Message = TextKey.MessageBox_RemoteSessionNotAllowed,
-					Title = TextKey.MessageBox_RemoteSessionNotAllowedTitle
-				};
-
-				logger.Error("Detected remote session while SEB is not allowed to be run in a remote session! Aborting...");
-				ActionRequired?.Invoke(args);
-
-				return OperationResult.Aborted;
-			}
-
+			
 			return OperationResult.Success;
 		}
 	}
