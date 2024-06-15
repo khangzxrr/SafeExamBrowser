@@ -60,7 +60,7 @@ namespace SafeExamBrowser.Monitoring.Display
 
 		public void StartMonitoringDisplayChanges()
 		{
-			SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+			//SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 			logger.Info("Started monitoring display changes.");
 		}
 
@@ -110,7 +110,7 @@ namespace SafeExamBrowser.Monitoring.Display
 		private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
 		{
 			logger.Info("Display change detected!");
-			Task.Run(() => DisplayChanged?.Invoke());
+			//Task.Run(() => DisplayChanged?.Invoke());
 		}
 
 		private void InitializeWorkingArea(int taskbarHeight)
