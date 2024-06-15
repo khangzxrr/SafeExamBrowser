@@ -65,7 +65,8 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 
 			//IMPORTANT
 			//make sure to launch client.exe from original SEB to bypass hash check
-			appConfig.ClientExecutablePath = "C:\\Program Files\\SafeExamBrowser\\Application\\SafeExamBrowser.Client.exe";
+			//appConfig.ClientExecutablePath = "C:\\Program Files\\SafeExamBrowser\\Application\\SafeExamBrowser.Client.exe";
+			appConfig.ClientExecutablePath = "SafeExamBrowser.Client.exe";
 
 			appConfig.ClientLogFilePath = Path.Combine(logFolder, $"{logFilePrefix}_Client.log");
 			appConfig.CodeSignatureHash = certificate?.GetCertHashString();
