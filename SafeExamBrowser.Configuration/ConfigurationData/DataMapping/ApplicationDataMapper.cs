@@ -31,53 +31,7 @@ namespace SafeExamBrowser.Configuration.ConfigurationData.DataMapping
 
 		private void MapApplicationBlacklist(AppSettings settings, object value)
 		{
-			if (value is IList<object> applications)
-			{
-				foreach (var item in applications)
-				{
-					if (item is IDictionary<string, object> applicationData)
-					{
-						var isWindowsProcess = applicationData.TryGetValue(Keys.Applications.OperatingSystem, out var v) && v is int os && os == Keys.WINDOWS;
-
-						if (isWindowsProcess)
-						{
-							var application = new BlacklistApplication();
-							var isActive = applicationData.TryGetValue(Keys.Applications.Active, out v) && v is bool active && active;
-
-							if (applicationData.TryGetValue(Keys.Applications.AutoTerminate, out v) && v is bool autoTerminate)
-							{
-								application.AutoTerminate = autoTerminate;
-							}
-
-							if (applicationData.TryGetValue(Keys.Applications.ExecutableName, out v) && v is string executableName)
-							{
-								application.ExecutableName = executableName;
-							}
-
-							if (applicationData.TryGetValue(Keys.Applications.OriginalName, out v) && v is string originalName)
-							{
-								application.OriginalName = originalName;
-							}
-
-							var defaultEntry = settings.Applications.Blacklist.FirstOrDefault(a =>
-							{
-								return a.ExecutableName?.Equals(application.ExecutableName, StringComparison.OrdinalIgnoreCase) == true
-									&& a.OriginalName?.Equals(application.OriginalName, StringComparison.OrdinalIgnoreCase) == true;
-							});
-
-							if (defaultEntry != default(BlacklistApplication))
-							{
-								settings.Applications.Blacklist.Remove(defaultEntry);
-							}
-
-							if (isActive)
-							{
-								settings.Applications.Blacklist.Add(application);
-							}
-						}
-					}
-				}
-			}
+		
 		}
 
 		private void MapApplicationWhitelist(AppSettings settings, object value)
