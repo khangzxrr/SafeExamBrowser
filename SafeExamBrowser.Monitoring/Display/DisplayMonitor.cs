@@ -109,7 +109,7 @@ namespace SafeExamBrowser.Monitoring.Display
 
 		private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
 		{
-			logger.Info("Display change detected!");
+			//logger.Info("Display change detected!");
 			//Task.Run(() => DisplayChanged?.Invoke());
 		}
 
