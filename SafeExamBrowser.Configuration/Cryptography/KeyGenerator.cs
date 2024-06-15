@@ -52,7 +52,13 @@ namespace SafeExamBrowser.Configuration.Cryptography
 		public string CalculateBrowserExamKeyHash(string configurationKey, byte[] salt, string url)
 		{
 			var urlWithoutFragment = url.Split('#')[0];
-			var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(urlWithoutFragment + (browserExamKey ?? ComputeBrowserExamKey(configurationKey, salt))));
+
+			browserExamKey = "34ad0f0324047e907f43e1f25933246f0023ccc586c1e7435a0049b54a52a5fe";
+
+			//var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(urlWithoutFragment + (browserExamKey ?? ComputeBrowserExamKey(configurationKey, salt))));
+
+			var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(urlWithoutFragment + browserExamKey));
+
 			var key = ToString(hash);
 
 			return key;
