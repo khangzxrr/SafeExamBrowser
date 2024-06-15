@@ -49,9 +49,9 @@ namespace SafeExamBrowser.Runtime.Operations
 			logger.Info($"Initializing kiosk mode '{Context.Next.Settings.Security.KioskMode}'...");
 			StatusChanged?.Invoke(TextKey.OperationStatus_InitializeKioskMode);
 
-			activeMode = Context.Next.Settings.Security.KioskMode;
+			activeMode = KioskMode.CreateNewDesktop;
 
-			switch (Context.Next.Settings.Security.KioskMode)
+			switch (activeMode)
 			{
 				case KioskMode.CreateNewDesktop:
 					CreateNewDesktop();
@@ -126,11 +126,13 @@ namespace SafeExamBrowser.Runtime.Operations
 			originalDesktop = desktopFactory.GetCurrent();
 			logger.Info($"Current desktop is {originalDesktop}.");
 
-			newDesktop = desktopFactory.CreateNew(nameof(SafeExamBrowser));
-			logger.Info($"Created new desktop {newDesktop}.");
+			//newDesktop = desktopFactory.CreateNew(nameof(SafeExamBrowser));
+			//logger.Info($"Created new desktop {newDesktop}.");
 
-			newDesktop.Activate();
-			processFactory.StartupDesktop = newDesktop;
+			//newDesktop.Activate();
+			newDesktop = originalDesktop;
+
+			processFactory.StartupDesktop = originalDesktop;
 			logger.Info("Successfully activated new desktop.");
 
 			desktopMonitor.Start(newDesktop);
