@@ -66,33 +66,8 @@ namespace SafeExamBrowser.Applications
 
 			var terminated = process.HasTerminated;
 
-			if (terminated)
-			{
-				logger.Info("Application instance is already terminated.");
-			}
-			else
-			{
-				FinalizeEvents();
-
-				for (var attempt = 0; attempt < MAX_ATTEMPTS && !terminated; attempt++)
-				{
-					terminated = process.TryClose(TIMEOUT_MS);
-				}
-
-				for (var attempt = 0; attempt < MAX_ATTEMPTS && !terminated; attempt++)
-				{
-					terminated = process.TryKill(TIMEOUT_MS);
-				}
-
-				if (terminated)
-				{
-					logger.Info("Successfully terminated application instance.");
-				}
-				else
-				{
-					logger.Warn("Failed to terminate application instance!");
-				}
-			}
+			
+			
 		}
 
 		private void Process_Terminated(int exitCode)
