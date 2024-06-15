@@ -375,52 +375,52 @@ namespace SafeExamBrowser.Monitoring.Applications
 
 		private bool TryHide(Window window)
 		{
-			var success = nativeMethods.HideWindow(window.Handle);
+			//var success = nativeMethods.HideWindow(window.Handle);
 
-			if (success)
-			{
-				logger.Info($"Successfully hid window {window}.");
-			}
-			else
-			{
-				logger.Warn($"Failed to hide window {window}!");
-			}
+			//if (success)
+			//{
+			//	logger.Info($"Successfully hid window {window}.");
+			//}
+			//else
+			//{
+			//	logger.Warn($"Failed to hide window {window}!");
+			//}
 
-			return success;
+			return true;
 		}
 
 		private bool TryTerminate(IProcess process)
 		{
-			const int MAX_ATTEMPTS = 5;
-			const int TIMEOUT = 500;
+			//const int MAX_ATTEMPTS = 5;
+			//const int TIMEOUT = 500;
 
-			for (var attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
-			{
-				if (process.TryClose(TIMEOUT))
-				{
-					break;
-				}
-			}
+			//for (var attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
+			//{
+			//	if (process.TryClose(TIMEOUT))
+			//	{
+			//		break;
+			//	}
+			//}
 
-			if (!process.HasTerminated)
-			{
-				for (var attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
-				{
-					if (process.TryKill(TIMEOUT))
-					{
-						break;
-					}
-				}
-			}
+			//if (!process.HasTerminated)
+			//{
+			//	for (var attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
+			//	{
+			//		if (process.TryKill(TIMEOUT))
+			//		{
+			//			break;
+			//		}
+			//	}
+			//}
 
-			if (process.HasTerminated)
-			{
-				logger.Info($"Successfully terminated process {process}.");
-			}
-			else
-			{
-				logger.Warn($"Failed to terminate process {process}!");
-			}
+			//if (process.HasTerminated)
+			//{
+			//	logger.Info($"Successfully terminated process {process}.");
+			//}
+			//else
+			//{
+			//	logger.Warn($"Failed to terminate process {process}!");
+			//}
 
 			return process.HasTerminated;
 		}
