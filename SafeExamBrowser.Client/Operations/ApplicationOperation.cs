@@ -160,43 +160,9 @@ namespace SafeExamBrowser.Client.Operations
 
 		private OperationResult TryTerminate(IEnumerable<RunningApplication> runningApplications)
 		{
-			var args = new ApplicationTerminationEventArgs(runningApplications);
-			var failed = new List<RunningApplication>();
+		
 			var result = OperationResult.Success;
 
-			logger.Info($"The following applications need to be terminated: {string.Join(", ", runningApplications.Select(a => a.Name))}.");
-			ActionRequired?.Invoke(args);
-
-			if (args.TerminateProcesses)
-			{
-				logger.Info($"The user chose to automatically terminate all running applications.");
-
-				foreach (var application in runningApplications)
-				{
-					var success = monitor.TryTerminate(application);
-
-					if (success)
-					{
-						logger.Info($"Successfully terminated application '{application.Name}'.");
-					}
-					else
-					{
-						result = OperationResult.Failed;
-						failed.Add(application);
-						logger.Error($"Failed to automatically terminate application '{application.Name}'!");
-					}
-				}
-			}
-			else
-			{
-				logger.Info("The user chose not to automatically terminate all running applications. Aborting...");
-				result = OperationResult.Aborted;
-			}
-
-			if (failed.Any())
-			{
-				ActionRequired?.Invoke(new ApplicationTerminationFailedEventArgs(failed));
-			}
 
 			return result;
 		}
